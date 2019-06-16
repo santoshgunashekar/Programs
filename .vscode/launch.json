@@ -2,6 +2,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Swapbits",
+            "request": "launch",
+            "mainClass": "Swapbits"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - parity",
             "request": "launch",
             "mainClass": "parity"
