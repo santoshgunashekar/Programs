@@ -11,17 +11,45 @@ class LinkedListADT {
 
     static Node head;
 
-    public static void insertNode(int data) {
+    public static void insertNodeAtStart(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public static void insertNodeAtMiddle(int data, int k) {
         Node newNode = new Node(data);
         if (head == null) {
             head = newNode;
-        } else {
-            Node temp = head;
-            while (temp.next != null) {
-                temp = temp.next;
-            }
-            temp.next = newNode;
+            return;
         }
+        int position = 1;
+        Node temp = head;
+        Node prev = head;
+        while (position < k - 1 && temp != null) {
+            prev = temp;
+            temp = temp.next;
+            position++;
+        }
+        if (position != k - 1) {
+            prev.next = newNode;
+            return;
+        }
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
+    public static void insertNodeAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = newNode;
     }
 
     public static void removeValue(int value) {
@@ -42,6 +70,19 @@ class LinkedListADT {
         }
     }
 
+    public static void traverse() {
+        if (head == null) {
+            System.out.println("No nodes in the list");
+            return;
+        }
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
     public static int lengthOfList() {
         int length = 0;
         if (head == null) {
@@ -55,8 +96,28 @@ class LinkedListADT {
         return length;
     }
 
-    public static void search() {
+    public static void search(int data) {
+        if (head == null) {
+            System.out.println("No nodes present");
+            return;
+        }
+        int position = 1;
+        Node temp = head;
+        while (temp != null) {
+            if (temp.data == data) {
+                System.out.println("Data present at index " + position);
+            }
+            position++;
+            temp = temp.next;
+        }
+    }
 
+    public static void removeNodeAtEnd() {
+        removekthNode(lengthOfList());
+    }
+
+    public static void removeFirstNode() {
+        removekthNode(1);
     }
 
     public static void removekthNode(int k) {
@@ -96,25 +157,47 @@ class LinkedListADT {
 
     }
 
+    public static void reverseList() {
+        if (head == null) {
+            System.out.println("No nodes in the list");
+        }
+        Node prev = null;
+        Node temp = head;
+        while (temp != null) {
+            Node next = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = next;
+        }
+        head = prev;
+    }
+
     public static void main(String[] args) {
         head = null;
-        insertNode(10);
-        insertNode(20);
-        insertNode(30);
-        insertNode(40);
-        insertNode(20);
-        insertNode(30);
-
-        Node temp = head;
-
-        // removekthNode(1);
-        // removeValue(20);
+        insertNodeAtEnd(10);
+        traverse();
+        insertNodeAtEnd(20);
+        traverse();
+        insertNodeAtEnd(30);
+        traverse();
+        insertNodeAtEnd(40);
+        traverse();
+        insertNodeAtEnd(20);
+        traverse();
+        insertNodeAtEnd(30);
+        traverse();
+        insertNodeAtStart(0);
+        traverse();
+        insertNodeAtMiddle(100, 4);
+        traverse();
         System.out.println("Length of the linked list is " + lengthOfList());
-        temp = head;
-        while (temp != null) {
-            System.out.println(temp.data);
-            temp = temp.next;
-        }
+        search(20);
+        removeFirstNode();
+        traverse();
+        removeNodeAtEnd();
+        traverse();
+        reverseList();
+        traverse();
     }
 
 }
