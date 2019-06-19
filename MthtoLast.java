@@ -50,7 +50,6 @@ class MthToLast {
             return;
         }
         Node temp = head;
-        Node mthPointer = head;
         int position = 1;
         while (temp != null) {
             if (position == (length - m)) {
