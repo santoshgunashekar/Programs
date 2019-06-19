@@ -11,6 +11,24 @@ class LinkedListADT {
 
     static Node head;
 
+    public static void getValueAtPosition(int k) {
+        if (head == null) {
+            System.out.println("No nodes present in the list");
+            return;
+        }
+        int position = 1;
+        Node temp = head;
+        while (temp != null) {
+            if (position == k) {
+                System.out.println("Value at position " + k + " is " + temp.data);
+                return;
+            }
+            temp = temp.next;
+            position++;
+        }
+        System.out.println("Lesser number of nodes present in the list");
+    }
+
     public static void insertNodeAtStart(int data) {
         Node newNode = new Node(data);
         newNode.next = head;
@@ -198,6 +216,6 @@ class LinkedListADT {
         traverse();
         reverseList();
         traverse();
+        getValueAtPosition(5);
     }
-
 }

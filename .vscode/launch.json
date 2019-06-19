@@ -2,6 +2,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - MthToLast",
+            "request": "launch",
+            "mainClass": "MthToLast"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - LinkedListADT",
             "request": "launch",
             "mainClass": "LinkedListADT"
