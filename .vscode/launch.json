@@ -2,6 +2,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - DoublyLinkedList",
+            "request": "launch",
+            "mainClass": "DoublyLinkedList"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - MthToLast",
             "request": "launch",
             "mainClass": "MthToLast"
