@@ -148,14 +148,37 @@ class ListFlattener {
             newNode1 = new Node(1, mainNode, null, null);
             mainNode.next = newNode1;
             mainNode = newNode1;
+            tail = newNode1;
         }
 
         prev = null;
         childList = new LinkedList<Node>();
         childList.add(head);
-        head = listFlatten();
+        // head = listFlatten();
+        listFlattenUsingTail();
         traverse();
+    }
 
+    public static void listFlattenUsingTail() {
+        if (head == null) {
+            System.out.println("No nodes in the list");
+            return;
+        }
+        Node node = head;
+        while (node != null) {
+            if (node.child != null) {
+                appendToTail(node.child);
+            }
+            node = node.next;
+        }
+    }
+
+    public static void appendToTail(Node node) {
+        tail.next = node;
+        while (node.next != null) {
+            node = node.next;
+        }
+        tail = node;
     }
 
 }
