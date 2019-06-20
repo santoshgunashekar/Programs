@@ -66,10 +66,7 @@ class ListFlattener {
             if (count != 0) {
                 prev.next = node;
             }
-            if (count == 0) {
-                prev = null;
-                count++;
-            }
+            count++;
             // System.out.println(node.data);
             while (node != null) {
                 if (node.child != null) {
