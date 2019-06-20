@@ -84,6 +84,28 @@ class ListFlattener {
         return head_result;
     }
 
+    public static void listUnFlatten() {
+        if (head == null) {
+            System.out.println("No nodes in the list");
+            return;
+        }
+        Node node = head;
+        Node prev = head;
+        int count = 1;
+        while (node != null) {
+            if (node.child != null) {
+                node.child.prev = null;
+            }
+            if (node.prev == null && count != 1) {
+                prev.next = null;
+            }
+            prev = node;
+            node = node.next;
+            count++;
+        }
+
+    }
+
     public static void main(String[] args) throws NoSuchElementException {
         head = null;
 
@@ -157,6 +179,8 @@ class ListFlattener {
         // head = listFlatten();
         listFlattenUsingTail();
         traverse();
+        listUnFlatten();
+        traverseChild();
     }
 
     public static void listFlattenUsingTail() {
