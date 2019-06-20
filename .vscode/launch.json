@@ -2,6 +2,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ListFlattener",
+            "request": "launch",
+            "mainClass": "ListFlattener"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - DoublyLinkedList",
             "request": "launch",
             "mainClass": "DoublyLinkedList"
