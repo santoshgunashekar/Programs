@@ -12,6 +12,61 @@ class BST {
 
     static Node root;
 
+    public static Node findMax(Node node) {
+        if (node == null) {
+            return null;
+        }
+        if (node.right != null) {
+            return node.right;
+        } else if (node.left != null) {
+            return node.left;
+        } else {
+            return node;
+        }
+    }
+
+    public static Node findMin(Node node) {
+        if (node == null) {
+            return null;
+        }
+        if (node.left != null) {
+            return node.left;
+        } else if (node.right != null) {
+            return node.right;
+        } else {
+            return node;
+        }
+    }
+
+    public static Node deleteNode(int data, Node node) {
+        if (node == null) {
+            return null;
+        }
+        if (data == node.data) {
+            if (node.left == null && node.right == null) {
+                return null;
+            } else if (node.left != null && node.right == null) {
+                Node temp = findMax(node.left);
+                int temp_data = temp.data;
+                node.left = deleteNode(temp_data, node.left);
+                node.data = temp_data;
+                return node;
+            } else {
+                Node temp = findMin(node.right);
+                int temp_data = temp.data;
+                node.right = deleteNode(temp_data, node.right);
+                node.data = temp_data;
+                return node;
+            }
+        }
+        if (data < node.data) {
+            node.left = deleteNode(data, node.left);
+        } else if (data > node.data) {
+            node.right = deleteNode(data, node.right);
+        }
+        return node;
+    }
+
     public static Node insertNode(int data, Node node) {
         if (node == null) {
             Node newNode = new Node(data, null, null);
@@ -57,7 +112,12 @@ class BST {
         root = insertNode(8, root);
         root = insertNode(7, root);
         root = insertNode(4, root);
+        // inOrderTraversal(root);
+        // search(7, root, 1);
+        System.out.println(findMin(root.left.right));
+        root = deleteNode(3, root);
+        root = deleteNode(8, root);
+        root = deleteNode(5, root);
         inOrderTraversal(root);
-        search(7, root, 1);
     }
 }
