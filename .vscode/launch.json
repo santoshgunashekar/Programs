@@ -2,6 +2,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - CyclicList",
+            "request": "launch",
+            "mainClass": "CyclicList"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - ListFlattener",
             "request": "launch",
             "mainClass": "ListFlattener"
