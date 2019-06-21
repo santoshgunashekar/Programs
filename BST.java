@@ -105,6 +105,20 @@ class BST {
         }
     }
 
+    public static Node LCA(int data1, int data2, Node node) {
+        if (node == null) {
+            return null;
+        }
+        if (Math.max(data2, data1) <= node.data) {
+            node = LCA(data1, data2, node.left);
+        } else if (Math.min(data2, data1) > node.data) {
+            node = LCA(data1, data2, node.right);
+        } else {
+            return node;
+        }
+        return node;
+    }
+
     public static void main(String[] args) {
         root = insertNode(5, root);
         root = insertNode(11, root);
@@ -112,12 +126,22 @@ class BST {
         root = insertNode(8, root);
         root = insertNode(7, root);
         root = insertNode(4, root);
+        root = insertNode(2, root);
+        root = insertNode(1, root);
+        root = insertNode(9, root);
+        root = insertNode(10, root);
+        root = insertNode(7, root);
+        root = insertNode(16, root);
+        root = insertNode(12, root);
+        root = insertNode(18, root);
+        root = insertNode(19, root);
+        System.out.println(LCA(7, 19, root).data);
         // inOrderTraversal(root);
         // search(7, root, 1);
-        System.out.println(findMin(root.left.right));
-        root = deleteNode(3, root);
-        root = deleteNode(8, root);
-        root = deleteNode(5, root);
-        inOrderTraversal(root);
+        // System.out.println(findMin(root.left.right));
+        // root = deleteNode(3, root);
+        // root = deleteNode(8, root);
+        // root = deleteNode(5, root);
+        // inOrderTraversal(root);
     }
 }
