@@ -105,6 +105,20 @@ class BST {
         }
     }
 
+    public static int getHeight(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int leftMax = 0, rightMax = 0;
+        if (node.left != null) {
+            leftMax = 1 + getHeight(node.left);
+        }
+        if (node.right != null) {
+            rightMax = 1 + getHeight(node.right);
+        }
+        return Math.max(leftMax, rightMax);
+    }
+
     public static Node LCA(int data1, int data2, Node node) {
         if (node == null) {
             return null;
@@ -119,29 +133,75 @@ class BST {
         return node;
     }
 
+    public static boolean isBalanced(Node node) {
+        if (node == null) {
+            return true;
+        }
+        int leftHeight = getHeight(node.left);
+        if (node.left != null) {
+            leftHeight++;
+        }
+        int rightHeight = getHeight(node.right);
+        if (node.right != null) {
+            rightHeight++;
+        }
+        int difference = leftHeight - rightHeight;
+        if (difference >= -1 && difference <= 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void traversePreOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        System.out.println(node.data);
+        traversePreOrder(node.left);
+        traversePreOrder(node.right);
+    }
+
+    public static Node rotateRight(Node node) {
+        Node temp = node;
+        node = node.left;
+        if (temp.right == null && node.right == null) {
+            node.right = temp;
+        } else if (temp.right != null && node.right == null) {
+            node.right = temp.right;
+            insertNode(temp.data, node.right);
+        } else if (temp.right == null && node.right != null) {
+            insertNode(temp.data, node.right);
+            node = findMax(node.right);
+        } else {
+            insertNode(temp.data, node.right);
+            InsertNodes(node.right, temp.right);
+        }
+        temp.left = null;
+        return node;
+    }
+
+    public static void InsertNodes(Node node, Node root) {
+        if (node == null) {
+            return;
+        }
+        insertNode(node.data, root);
+        InsertNodes(node.left, root);
+        InsertNodes(node.right, root);
+    }
+
     public static void main(String[] args) {
         root = insertNode(5, root);
-        root = insertNode(11, root);
-        root = insertNode(3, root);
-        root = insertNode(8, root);
-        root = insertNode(7, root);
         root = insertNode(4, root);
+        root = insertNode(3, root);
         root = insertNode(2, root);
         root = insertNode(1, root);
-        root = insertNode(9, root);
-        root = insertNode(10, root);
         root = insertNode(7, root);
-        root = insertNode(16, root);
-        root = insertNode(12, root);
-        root = insertNode(18, root);
-        root = insertNode(19, root);
-        System.out.println(LCA(7, 19, root).data);
-        // inOrderTraversal(root);
-        // search(7, root, 1);
-        // System.out.println(findMin(root.left.right));
-        // root = deleteNode(3, root);
-        // root = deleteNode(8, root);
-        // root = deleteNode(5, root);
+        root = insertNode(6, root);
+        root = insertNode(8, root);
+
+        root = rotateRight(root.right);
+        traversePreOrder(root);
         // inOrderTraversal(root);
     }
 }
