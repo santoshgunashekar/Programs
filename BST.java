@@ -163,63 +163,31 @@ class BST {
     }
 
     public static Node rotateRight(Node node) {
-        Node temp = node;
-        node = node.left;
-        if (temp.right == null && node.right == null) {
-            node.right = temp;
-            temp.left = null;
-        } else if (temp.right != null && node.right == null) {
-            node.right = temp.right;
-            node.right = insertNode(temp.data, node.right);
-        } else {
-            Node right_temp = node.right;
-            node.right = insertNode(temp.data, temp.right);
-            node.right = InsertNodes(right_temp, node.right);
-        }
+        Node newRoot = node.left;
+        node.left = newRoot.right;
+        newRoot.right = node;
+        node = newRoot;
         return node;
     }
 
     public static Node rotateLeft(Node node) {
-        Node temp = node;
-        node = node.right;
-        if (temp.left == null && node.left == null) {
-            node.left = temp;
-            temp.right = null;
-        } else if (temp.left != null && node.left == null) {
-            node.left = temp.left;
-            node.left = insertNode(temp.data, node.left);
-        } else {
-            Node left_temp = node.left;
-            node.left = insertNode(temp.data, temp.left);
-            node.left = InsertNodes(left_temp, node.left);
-        }
+        Node newRoot = node.right;
+        node.right = newRoot.left;
+        newRoot.left = node;
+        node = newRoot;
         return node;
-    }
-
-    public static Node InsertNodes(Node node, Node root) {
-        if (node == null) {
-            return root;
-        }
-        root = insertNode(node.data, root);
-        InsertNodes(node.left, root);
-        InsertNodes(node.right, root);
-        return root;
     }
 
     public static void main(String[] args) {
         root = insertNode(26, root);
         root = insertNode(4, root);
-        root = insertNode(3, root);
+        root = insertNode(30, root);
         root = insertNode(2, root);
         root = insertNode(1, root);
-        root = insertNode(70, root);
-        root = insertNode(60, root);
-        root = insertNode(80, root);
-        root = insertNode(6, root);
         root = insertNode(5, root);
-        root = insertNode(10, root);
-        root = insertNode(7, root);
-        root = rotateLeft(root);
+        root = insertNode(27, root);
+        // traversePreOrder(root);
+        root = rotateRight(root);
         traversePreOrder(root);
         // inOrderTraversal(root);
     }
