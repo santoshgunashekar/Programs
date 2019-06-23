@@ -33,17 +33,17 @@ class Heap {
         if (node.left == null) {
             node.left = insertNode(data, node.left);
             if (max) {
-                node = maxheapify(node);
+                node = maxHeapify(node);
             } else {
-                node = minheapify(node);
+                node = minHeapify(node);
             }
             return node;
         } else if (node.right == null) {
             node.right = insertNode(data, node.right);
             if (max) {
-                node = maxheapify(node);
+                node = maxHeapify(node);
             } else {
-                node = minheapify(node);
+                node = minHeapify(node);
             }
             return node;
         }
@@ -57,16 +57,19 @@ class Heap {
             node.right = insertNode(data, currentParent);
         }
         if (max) {
-            node = maxheapify(node);
+            node = maxHeapify(node);
         } else {
-            node = minheapify(node);
+            node = minHeapify(node);
         }
         return node;
     }
 
     // For a min-heap
     // For a max-heap, change the lesser than symbol(<) to greater than symbol(>)
-    public static Node maxheapify(Node node) {
+    public static Node maxHeapify(Node node) {
+        if (node == null) {
+            return null;
+        }
         if (node.left != null && node.left.data > node.data) {
             int temp = node.data;
             node.data = node.left.data;
@@ -77,10 +80,15 @@ class Heap {
             node.data = node.right.data;
             node.right.data = temp;
         }
+        node.left = maxHeapify(node.left);
+        node.right = maxHeapify(node.right);
         return node;
     }
 
-    public static Node minheapify(Node node) {
+    public static Node minHeapify(Node node) {
+        if (node == null) {
+            return null;
+        }
         if (node.left != null && node.left.data < node.data) {
             int temp = node.data;
             node.data = node.left.data;
@@ -91,6 +99,8 @@ class Heap {
             node.data = node.right.data;
             node.right.data = temp;
         }
+        node.left = minHeapify(node.left);
+        node.right = minHeapify(node.right);
         return node;
     }
 
@@ -112,13 +122,39 @@ class Heap {
         traversePre(node.right);
     }
 
+    public static int getMin() {
+
+        int temp = root.data;
+        root.data = lastNode.data;
+        if (currentParent.right != null) {
+            currentParent.right = null;
+        } else {
+            currentParent.left = null;
+        }
+        root = minHeapify(root);
+        return temp;
+    }
+
+    public static int getMax() {
+        int temp = root.data;
+        root.data = lastNode.data;
+        if (currentParent.right != null) {
+            currentParent.right = null;
+        } else {
+            currentParent.left = null;
+        }
+        root = maxHeapify(root);
+        return temp;
+    }
+
     public static void main(String[] args) {
         root = null;
         lastNode = null;
         childRemoved = 0;
         // set max to true to get max-Heap
         // set max to false to get min-Heap
-        max = false;
+        max = true;
+
         parentQueue = new LinkedList<Node>();
         root = insertNode(1, root);
         root = insertNode(3, root);
@@ -127,9 +163,5 @@ class Heap {
         root = insertNode(9, root);
         root = insertNode(8, root);
         root = insertNode(-2, root);
-        traverse(root);
-        System.out.println();
-        traversePre(root);
-
     }
 }
